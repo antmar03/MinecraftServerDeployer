@@ -61,5 +61,7 @@ public abstract class Downloadable {
 
     }
 
-
+    protected void setURL(String url) {
+        this.url = url;
+    }
 }
