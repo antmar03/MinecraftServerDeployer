@@ -4,6 +4,8 @@ import com.antmar03.error.ErrorPopup;
 import com.antmar03.error.enums.ErrorCode;
 import com.antmar03.servers.Servers;
 
+import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.io.*;
 import java.util.Scanner;
 
@@ -13,11 +15,17 @@ public class ServerProcess {
 
     private Process serverProcess;
 
-    public ServerProcess(int id) {
+    private volatile JTextArea console;
+
+    public ServerProcess(int id, JTextArea console) {
         this.server = Servers.getInstance().getServer(id);
+        this.console = console;
     }
 
 
+    /**
+     * Starts the server thread, and appends output to the console window
+     */
     public void runServer() {
         if(this.serverThread != null && this.serverThread.isAlive()) {
             ErrorPopup.showPopup(ErrorCode.SERVER_ALREADY_RUNNING);
@@ -43,7 +51,9 @@ public class ServerProcess {
                             continue;
                         }
 
-                        System.out.println(line);
+                        console.append("\n" + line);
+                        DefaultCaret caret =(DefaultCaret)console.getCaret();
+                        caret.setUpdatePolicy(DefaultCaret.OUT_BOTTOM);
 
                         Thread.sleep(100);
                     }
@@ -63,6 +73,14 @@ public class ServerProcess {
         serverThread.start();
     }
 
+    public void op(String player) {
+        PrintWriter stdin = new PrintWriter(
+                new BufferedWriter(
+                        new OutputStreamWriter(this.serverProcess.getOutputStream())), true);
+
+        stdin.println("op " + player);
+        stdin.close();
+    }
 
     public void stop() {
         PrintWriter stdin = new PrintWriter(

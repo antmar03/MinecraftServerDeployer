@@ -27,9 +27,7 @@ public class DeploymentTests {
 
         if(serverIndex != -1) {
             Server server = Servers.getInstance().getServer(serverIndex);
-            server.run();
-            Thread.sleep(70000);
-            server.stop();
+            server.run(null);
 
             while(server.isRunning()) {
                 Thread.sleep(100);

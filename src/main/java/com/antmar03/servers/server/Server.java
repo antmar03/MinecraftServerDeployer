@@ -5,6 +5,7 @@ import com.antmar03.error.enums.ErrorCode;
 import com.antmar03.http.downloaders.ServerDownloader;
 import com.antmar03.servers.server.configuration.configs.PropertiesConfig;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.Scanner;
 
@@ -98,14 +99,18 @@ public class Server {
         serverThread.start();
     }
 
-    public void run() {
+    public void run(JTextArea console) {
         if(this.isRunning) {
             ErrorPopup.showPopup(ErrorCode.SERVER_ALREADY_RUNNING);
             return;
         }
 
-        this.serverProcess = new ServerProcess(this.id);
+        this.serverProcess = new ServerProcess(this.id, console);
         this.serverProcess.runServer();
+    }
+
+    public void op(String player) {
+        this.serverProcess.op(player);
     }
 
     public void stop() {
