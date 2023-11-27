@@ -47,18 +47,9 @@ public class DeploymentPanel extends JPanel {
             contain the values needed without needing to deploy.
             Add to the servers list, then refresh page dynamically load tabs from xml, or just add it then dynamically add after the fact
      */
-    public DeploymentPanel() {
+    public DeploymentPanel(Server server) {
         this.initializePanel();
-
-        ServerDeployer deployer = ServerDeployer.getInstance();
-        int serverIndex = deployer.deployServer("New Run Server " + this.getNow(), "1.20.1");
-
-        if(serverIndex != -1) {
-            this.server = Servers.getInstance().getServer(serverIndex);
-        }else {
-            ErrorPopup.showPopup(ErrorCode.COULD_NOT_MAKE_SERVER);
-        }
-        //this.server = server;
+        this.server = server;
     }
 
     private void initializeButtons() {
