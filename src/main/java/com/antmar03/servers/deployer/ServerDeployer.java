@@ -5,6 +5,7 @@ import com.antmar03.error.enums.ErrorCode;
 import com.antmar03.http.downloaders.ServerDownloader;
 import com.antmar03.servers.Servers;
 import com.antmar03.servers.deployer.defaults.files.EulaFile;
+import com.antmar03.servers.deployer.defaults.files.PropertiesFile;
 import com.antmar03.servers.deployer.defaults.files.RunBat;
 import com.antmar03.servers.server.Server;
 
@@ -33,6 +34,8 @@ public class ServerDeployer {
         RunBat bat = new RunBat(server);
         bat.createFile();
 
+        PropertiesFile properties = new PropertiesFile(server);
+        properties.createFile();
 
         Servers.getInstance().addServer(server);
 
