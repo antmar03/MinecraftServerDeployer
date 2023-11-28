@@ -23,6 +23,7 @@ public class Servers {
     private Servers() {
         this.servers = new ArrayList<>();
         this.serversJSON = this.getJSON();
+        this.initializeServers();
     }
 
     public void addServer(Server server) {
@@ -36,6 +37,20 @@ public class Servers {
             writer.write(this.serversJSON.toString());
         } catch (IOException ex) {
             throw new RuntimeException(ex);
+        }
+    }
+
+    private void initializeServers() {
+        JSONArray serverArray = serversJSON.getJSONArray("servers");
+        JSONObject object;
+        int id = 0;
+
+        for(Object serverObject : serverArray) {
+            if(serverObject instanceof JSONObject) {
+                object = (JSONObject) serverObject;
+                servers.add(new Server(id, object.getString("version"), object.getString("name")));
+                id++;
+            }
         }
     }
 
@@ -77,5 +92,9 @@ public class Servers {
         }
 
         return instance;
+    }
+
+    public List<Server> getServers() {
+        return this.servers;
     }
 }

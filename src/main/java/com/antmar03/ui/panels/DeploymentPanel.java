@@ -134,10 +134,4 @@ public class DeploymentPanel extends JPanel {
         this.add(consolePanel, BorderLayout.PAGE_START);
         this.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
     }
-
-    private String getNow() {
-        SimpleDateFormat now = new SimpleDateFormat();
-        now.applyPattern("yyyy-MM-dd HH_mm_ss");
-        return now.format(new Date());
-    }
 }

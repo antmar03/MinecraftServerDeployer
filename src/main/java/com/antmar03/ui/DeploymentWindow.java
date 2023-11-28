@@ -1,6 +1,7 @@
 package com.antmar03.ui;
 
 
+import com.antmar03.servers.Servers;
 import com.antmar03.servers.server.Server;
 import com.antmar03.ui.components.ComponentGenerator;
 import com.antmar03.ui.components.listeners.DeployButtonListener;
@@ -34,8 +35,18 @@ public class DeploymentWindow extends MainWindow {
         super(width, height);
     }
 
+    private void addExistingDeployments(JTabbedPane deploymentsPane) {
+        Servers servers = Servers.getInstance();
+
+        for(Server server : servers.getServers()) {
+            DeploymentPanel panel = new DeploymentPanel(server);
+            deploymentsPane.add(server.getName(), panel);
+        }
+    }
+
     private JTabbedPane makeDeploymentPane() {
         JTabbedPane deploymentsPane = new JTabbedPane();
+        this.addExistingDeployments(deploymentsPane);
 
         return deploymentsPane;
     }

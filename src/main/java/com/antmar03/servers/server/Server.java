@@ -115,36 +115,6 @@ public class Server {
 
     public void stop() {
         this.serverProcess.stop();
-
-        /*
-        Scanner stdout =  new Scanner(
-                new BufferedReader(
-                        new InputStreamReader(runningServerProcess.getInputStream())));
-
-        PrintWriter stdin = new PrintWriter(
-                new BufferedWriter(
-                        new OutputStreamWriter(runningServerProcess.getOutputStream())), true);
-
-        Scanner stderr = new Scanner(
-                new BufferedReader(
-                        new InputStreamReader(runningServerProcess.getErrorStream())));
-
-        stdin.println("stop");
-        stdin.close();
-
-        /*try {
-            int exitCode = runningServerProcess.waitFor();
-        } catch (InterruptedException e) {
-            System.err.println("Error waiting for server");
-        }
-
-        while (stdout.hasNextLine()) {
-            System.out.println("Process output: " + stdout.nextLine());
-        }
-
-        while (stderr.hasNextLine()) {
-            System.err.println("Process error: " + stderr.nextLine());
-        }*/
     }
 
     public void setRunning(boolean state) {
