@@ -35,7 +35,6 @@ public class DeploymentTests {
         }
     }
 
-
     private String getNow() {
         SimpleDateFormat now = new SimpleDateFormat();
         now.applyPattern("yyyy-MM-dd HH_mm_ss");
